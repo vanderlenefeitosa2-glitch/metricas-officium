@@ -71,7 +71,7 @@ export default function Login({ onLogin }) {
   function handleLogin() {
     const users = getUsers()
     const user = users.find(u => u.email === email && u.senha === senha)
-    if (user) { setErro(''); onLogin(user.nome || 'Usuário') }
+    if (user) { setErro(''); onLogin(user.nome || 'Usuário', email) }
     else setErro('Email ou senha incorretos')
   }
 
