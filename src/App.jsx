@@ -290,7 +290,7 @@ export default function App() {
             <div key={i} style={{display:'flex',alignItems:'center',gap:8,padding:'7px 10px',background:'#3D2B1A',borderRadius:6,marginBottom:6}}>
               <span style={{fontSize:9,color:'#5A4A38',width:16}}>{i+1}</span>
               <span style={{fontSize:11,color:'#A89A88',flex:1}}>{t}</span>
-              <span style={{fontSize:9,color:'#C4A870',border:'0.5px solid #4A3828',borderRadius:10,padding:'2px 10px'}}>{['alto','alto','médio','médio'][i]}</span>
+              <span style={{fontSize:9,color:'#C4A870',border:'0.5px solid #4A3828',borderRadius:10,padding:'2px 10px'}}>{i < 2 ? 'alto' : 'medio'}</span>
             </div>
           ))}
         </CardEscuro>
