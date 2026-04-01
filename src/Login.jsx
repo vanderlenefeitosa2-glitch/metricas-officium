@@ -154,9 +154,9 @@ export default function Login({ onLogin }) {
           {modo === 'login' ? 'Entrar' : 'Criar acesso'}
         </div>
 
-        <div onClick={() => { setModo(modo==='login'?'cadastro':'login'); setErro(''); setSucesso('') }} style={s.btnSecondary}>
+        <button onClick={(e) => { e.stopPropagation(); e.preventDefault(); setModo(modo==='login'?'cadastro':'login'); setErro(''); setSucesso(''); setEmail(''); setSenha(''); setNome(''); setConfirma('') }} style={{...s.btnSecondary, width:'100%', display:'block'}}>
           {modo === 'login' ? '+ Criar novo acesso' : '← Voltar para login'}
-        </div>
+        </button>
 
         <div style={s.restricted}>Acesso exclusivo à equipe interna</div>
       </div>
