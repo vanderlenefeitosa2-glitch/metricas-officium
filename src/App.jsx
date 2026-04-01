@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Login from './Login.jsx'
+import AdminPanel from './AdminPanel.jsx'
 
 const PROFILES = [
   { id: 'claudia', label: 'Dra. Claudia' },
@@ -154,12 +155,15 @@ function Section({ title, badge, children }) {
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(false)
+  const [userName, setUserName] = useState('')
   const [activeProfile, setActiveProfile] = useState('claudia')
   const [activeMonth, setActiveMonth] = useState('Mar')
+  const [showAdmin, setShowAdmin] = useState(false)
+  const isAdmin = ['amaria@officium.com.br','admin@officium.com.br'].includes(localStorage.getItem('officium_current_email') || '')
   const now = new Date()
   const d = MOCK[activeProfile]
 
-  if (!loggedIn) return <Login onLogin={() => setLoggedIn(true)} />
+  if (!loggedIn) return <Login onLogin={(nome, email) => { setLoggedIn(true); setUserName(nome); localStorage.setItem('officium_current_email', email) }} />
 
   return (
     <div style={{ minHeight:'100vh', background:'#EDE8DF' }}>
@@ -176,16 +180,25 @@ export default function App() {
           <div style={{ width:6, height:6, borderRadius:'50%', background:'#6A8A5A' }}/>
           <span style={{ fontSize:10, color:'#6A8A5A' }}>API conectada</span>
           <div style={{ fontSize:10, color:'#9A8878', border:'0.5px solid #C4B89A', borderRadius:20, padding:'4px 12px' }}>{MONTHS[now.getMonth()]} · {now.getFullYear()}</div>
-          <button onClick={() => setLoggedIn(false)} style={{ fontSize:9, color:'#9A8878', background:'none', border:'0.5px solid #C4B89A', borderRadius:4, padding:'4px 10px', cursor:'pointer', letterSpacing:'0.08em', textTransform:'uppercase' }}>Sair</button>
+          {userName && <div style={{ fontSize:10, color:'#7A6A58' }}>Olá, {userName}</div>}
+          {isAdmin && <button onClick={() => setShowAdmin(!showAdmin)} style={{ fontSize:9, color: showAdmin ? '#C4A870' : '#9A8878', background:'none', border:`0.5px solid ${showAdmin ? '#C4A870' : '#C4B89A'}`, borderRadius:4, padding:'4px 10px', cursor:'pointer', letterSpacing:'0.08em', textTransform:'uppercase' }}>Admin</button>}
+          <button onClick={() => { setLoggedIn(false); localStorage.removeItem('officium_current_email') }} style={{ fontSize:9, color:'#9A8878', background:'none', border:'0.5px solid #C4B89A', borderRadius:4, padding:'4px 10px', cursor:'pointer', letterSpacing:'0.08em', textTransform:'uppercase' }}>Sair</button>
         </div>
       </div>
 
       <div style={{ background:'#EAE4DA', borderBottom:'0.5px solid #C4B89A', padding:'0 20px', display:'flex', overflowX:'auto' }}>
+        {showAdmin ? (
+          <div style={{ padding:'18px 20px', width:'100%', maxWidth:1200, margin:'0 auto' }}>
+            <AdminPanel/>
+          </div>
+        ) : (
         {PROFILES.map(p => (
           <button key={p.id} onClick={() => setActiveProfile(p.id)} style={{ fontSize:10, letterSpacing:'0.1em', color: activeProfile===p.id ? '#2C1F14' : '#9A8878', padding:'13px 18px', border:'none', background:'none', cursor:'pointer', borderBottom: activeProfile===p.id ? '2px solid #C4A870' : '2px solid transparent', whiteSpace:'nowrap', transition:'all 0.15s', textTransform:'uppercase', flexShrink:0, fontWeight: activeProfile===p.id ? 500 : 400 }}>{p.label}</button>
         ))}
         <button style={{ border:'0.5px dashed #C4B89A', borderRadius:8, margin:'8px 0 8px 8px', padding:'0 14px', fontSize:10, color:'#9A8878', background:'none', cursor:'pointer', letterSpacing:'0.08em', textTransform:'uppercase', flexShrink:0 }}>+ perfil</button>
       </div>
+
+      {!showAdmin && (
 
       <div style={{ padding:'18px 20px', display:'flex', flexDirection:'column', gap:14, maxWidth:1200, margin:'0 auto' }}>
 
@@ -366,6 +379,7 @@ export default function App() {
         </div>
 
       </div>
+      )}
     </div>
   )
 }
