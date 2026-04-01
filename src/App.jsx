@@ -154,16 +154,23 @@ function Section({ title, badge, children }) {
 }
 
 export default function App() {
-  const [loggedIn, setLoggedIn] = useState(false)
-  const [userName, setUserName] = useState('')
+  const savedEmail = localStorage.getItem('officium_current_email') || ''
+  const savedName = localStorage.getItem('officium_current_name') || ''
+  const [loggedIn, setLoggedIn] = useState(!!savedEmail)
+  const [userName, setUserName] = useState(savedName)
   const [activeProfile, setActiveProfile] = useState('claudia')
   const [activeMonth, setActiveMonth] = useState('Mar')
   const [showAdmin, setShowAdmin] = useState(false)
-  const isAdmin = ['amaria@officium.com.br','admin@officium.com.br'].includes(localStorage.getItem('officium_current_email') || '')
+  const isAdmin = ['amaria@officium.com.br','admin@officium.com.br'].includes(savedEmail)
   const now = new Date()
   const d = MOCK[activeProfile]
 
-  if (!loggedIn) return <Login onLogin={(nome, email) => { setLoggedIn(true); setUserName(nome); localStorage.setItem('officium_current_email', email) }} />
+  if (!loggedIn) return <Login onLogin={(nome, email) => {
+    localStorage.setItem('officium_current_email', email)
+    localStorage.setItem('officium_current_name', nome)
+    setLoggedIn(true)
+    setUserName(nome)
+  }} />
 
   return (
     <div style={{ minHeight:'100vh', background:'#EDE8DF' }}>
@@ -182,13 +189,15 @@ export default function App() {
           <div style={{ fontSize:10, color:'#9A8878', border:'0.5px solid #C4B89A', borderRadius:20, padding:'4px 12px' }}>{MONTHS[now.getMonth()]} · {now.getFullYear()}</div>
           {userName && <div style={{ fontSize:10, color:'#7A6A58' }}>Olá, {userName}</div>}
           {isAdmin && <button onClick={() => setShowAdmin(!showAdmin)} style={{ fontSize:9, color: showAdmin ? '#C4A870' : '#9A8878', background:'none', border:`0.5px solid ${showAdmin ? '#C4A870' : '#C4B89A'}`, borderRadius:4, padding:'4px 10px', cursor:'pointer', letterSpacing:'0.08em', textTransform:'uppercase' }}>Admin</button>}
-          <button onClick={() => { setLoggedIn(false); localStorage.removeItem('officium_current_email') }} style={{ fontSize:9, color:'#9A8878', background:'none', border:'0.5px solid #C4B89A', borderRadius:4, padding:'4px 10px', cursor:'pointer', letterSpacing:'0.08em', textTransform:'uppercase' }}>Sair</button>
+          <button onClick={() => { setLoggedIn(false); localStorage.removeItem('officium_current_email'); localStorage.removeItem('officium_current_name') }} style={{ fontSize:9, color:'#9A8878', background:'none', border:'0.5px solid #C4B89A', borderRadius:4, padding:'4px 10px', cursor:'pointer', letterSpacing:'0.08em', textTransform:'uppercase' }}>Sair</button>
         </div>
       </div>
 
       {showAdmin ? (
         <div style={{ background:'#EDE8DF', padding:'18px 20px', maxWidth:1200, margin:'0 auto', width:'100%' }}>
+          <button onClick={() => setShowAdmin(false)} style={{ fontSize:9, color:'#7A6A58', background:'none', border:'0.5px solid #C4B89A', borderRadius:4, padding:'6px 14px', cursor:'pointer', letterSpacing:'0.08em', textTransform:'uppercase', marginBottom:16 }}>← Voltar ao dashboard</button>
           <AdminPanel/>
+        </div>
         </div>
       ) : (
         <div style={{ background:'#EAE4DA', borderBottom:'0.5px solid #C4B89A', padding:'0 20px', display:'flex', overflowX:'auto' }}>
