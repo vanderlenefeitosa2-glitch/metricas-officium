@@ -198,7 +198,6 @@ export default function App() {
           <button onClick={() => setShowAdmin(false)} style={{ fontSize:9, color:'#7A6A58', background:'none', border:'0.5px solid #C4B89A', borderRadius:4, padding:'6px 14px', cursor:'pointer', letterSpacing:'0.08em', textTransform:'uppercase', marginBottom:16 }}>← Voltar ao dashboard</button>
           <AdminPanel/>
         </div>
-        </div>
       ) : (
         <div style={{ background:'#EAE4DA', borderBottom:'0.5px solid #C4B89A', padding:'0 20px', display:'flex', overflowX:'auto' }}>
           {PROFILES.map(p => (
