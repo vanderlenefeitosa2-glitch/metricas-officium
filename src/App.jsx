@@ -186,20 +186,20 @@ export default function App() {
         </div>
       </div>
 
-      <div style={{ background:'#EAE4DA', borderBottom:'0.5px solid #C4B89A', padding:'0 20px', display:'flex', overflowX:'auto' }}>
-        {showAdmin ? (
-          <div style={{ padding:'18px 20px', width:'100%', maxWidth:1200, margin:'0 auto' }}>
-            <AdminPanel/>
-          </div>
-        ) : (
-        {PROFILES.map(p => (
-          <button key={p.id} onClick={() => setActiveProfile(p.id)} style={{ fontSize:10, letterSpacing:'0.1em', color: activeProfile===p.id ? '#2C1F14' : '#9A8878', padding:'13px 18px', border:'none', background:'none', cursor:'pointer', borderBottom: activeProfile===p.id ? '2px solid #C4A870' : '2px solid transparent', whiteSpace:'nowrap', transition:'all 0.15s', textTransform:'uppercase', flexShrink:0, fontWeight: activeProfile===p.id ? 500 : 400 }}>{p.label}</button>
-        ))}
-        <button style={{ border:'0.5px dashed #C4B89A', borderRadius:8, margin:'8px 0 8px 8px', padding:'0 14px', fontSize:10, color:'#9A8878', background:'none', cursor:'pointer', letterSpacing:'0.08em', textTransform:'uppercase', flexShrink:0 }}>+ perfil</button>
-      </div>
+      {showAdmin ? (
+        <div style={{ background:'#EDE8DF', padding:'18px 20px', maxWidth:1200, margin:'0 auto', width:'100%' }}>
+          <AdminPanel/>
+        </div>
+      ) : (
+        <div style={{ background:'#EAE4DA', borderBottom:'0.5px solid #C4B89A', padding:'0 20px', display:'flex', overflowX:'auto' }}>
+          {PROFILES.map(p => (
+            <button key={p.id} onClick={() => setActiveProfile(p.id)} style={{ fontSize:10, letterSpacing:'0.1em', color: activeProfile===p.id ? '#2C1F14' : '#9A8878', padding:'13px 18px', border:'none', background:'none', cursor:'pointer', borderBottom: activeProfile===p.id ? '2px solid #C4A870' : '2px solid transparent', whiteSpace:'nowrap', transition:'all 0.15s', textTransform:'uppercase', flexShrink:0, fontWeight: activeProfile===p.id ? 500 : 400 }}>{p.label}</button>
+          ))}
+          <button style={{ border:'0.5px dashed #C4B89A', borderRadius:8, margin:'8px 0 8px 8px', padding:'0 14px', fontSize:10, color:'#9A8878', background:'none', cursor:'pointer', letterSpacing:'0.08em', textTransform:'uppercase', flexShrink:0 }}>+ perfil</button>
+        </div>
+      )}
 
       {!showAdmin && (
-
       <div style={{ padding:'18px 20px', display:'flex', flexDirection:'column', gap:14, maxWidth:1200, margin:'0 auto' }}>
 
         <div style={{ display:'flex', gap:6, alignItems:'center', flexWrap:'wrap' }}>
