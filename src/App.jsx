@@ -92,7 +92,7 @@ export default function App() {
         <span style={{fontSize:10,color:'#6A8A5A'}}>API conectada</span>
         <span style={{fontSize:10,color:'#9A8878',border:'0.5px solid #C4B89A',borderRadius:20,padding:'4px 12px'}}>{MONTHS[now.getMonth()]} · {now.getFullYear()}</span>
         {userName && <span style={{fontSize:10,color:'#7A6A58'}}>Olá, {userName}</span>}
-        {isAdmin && <button onClick={()=>setShowAdmin(!showAdmin)} style={{fontSize:9,color:showAdmin?'#C4A870':'#9A8878',background:'none',border:`0.5px solid ${showAdmin?'#C4A870':'#C4B89A'}`,borderRadius:4,padding:'4px 10px',cursor:'pointer',letterSpacing:'0.08em',textTransform:'uppercase'}}>Admin</button>}
+        {isAdmin && <button onClick={()=>setShowAdmin(!showAdmin)} style={{fontSize:9,color:showAdmin?'#C4A870':'#9A8878',background:'none',border:(showAdmin?'0.5px solid #C4A870':'0.5px solid #C4B89A'),borderRadius:4,padding:'4px 10px',cursor:'pointer',letterSpacing:'0.08em',textTransform:'uppercase'}}>Admin</button>}
         <button onClick={doLogout} style={{fontSize:9,color:'#9A8878',background:'none',border:'0.5px solid #C4B89A',borderRadius:4,padding:'4px 10px',cursor:'pointer',letterSpacing:'0.08em',textTransform:'uppercase'}}>Sair</button>
       </div>
     </div>
@@ -259,7 +259,7 @@ export default function App() {
           <Titulo text="Temas com potencial de viralizar" badge="análise IA"/>
           {d.viral.map((v,i) => (
             <div key={i} style={{background:'#2C1F14',borderRadius:8,padding:'14px',display:'flex',alignItems:'flex-start',gap:12,marginBottom:8}}>
-              <span style={{fontSize:9,color:v.potencial==='Alto'?'#6A8A5A':'#9A8060',background:v.potencial==='Alto'?'#1A2A18':'#2A2010',border:`0.5px solid ${v.potencial==='Alto'?'#3A5030':'#4A3A20'}`,borderRadius:10,padding:'3px 10px',flexShrink:0,marginTop:2}}>{v.potencial}</span>
+              <span style={{fontSize:9,color:v.potencial==='Alto'?'#6A8A5A':'#9A8060',background:v.potencial==='Alto'?'#1A2A18':'#2A2010',border:(v.potencial==='Alto'?'0.5px solid #3A5030':'0.5px solid #4A3A20'),borderRadius:10,padding:'3px 10px',flexShrink:0,marginTop:2}}>{v.potencial}</span>
               <div>
                 <div style={{fontSize:13,color:'#F5F0E8',fontWeight:600,marginBottom:4}}>{v.tema}</div>
                 <div style={{fontSize:10,color:'#8A7A68',lineHeight:1.6}}>{v.motivo}</div>
